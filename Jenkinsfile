@@ -3,7 +3,7 @@ node("slave1") {
         def scannerHome = tool 'SonarQube-Scanner';
         def projectKey = 'demo';
         withSonarQubeEnv('SonarQube') {
-            sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=${projectKey} -Dsonar.projectBaseDir=${WORKSPACE}"
+            sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=${projectKey}"
         }
         timeout(time: 1, unit: 'HOURS') {
             def qg = waitForQualityGate();
@@ -13,6 +13,7 @@ node("slave1") {
         }
     }
 }
+//-Dsonar.projectBaseDir=${WORKSPACE}
 // pipeline {
 //     agent { label 'slave1' }
 //     stages {
